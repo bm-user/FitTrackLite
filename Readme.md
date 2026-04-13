@@ -42,17 +42,14 @@ FitTrack Lite addresses this by pairing a **readable workout gallery**, a **dedi
 |--------|-------------|
 | Multi-view portal | At least three distinct views (e.g. home, workouts, log). |
 | Workout gallery | Six or more items rendered as cards; real-time search/filter. |
-| Live widget | `fetch()` to a public API (API Ninjas) with loading and error handling. |
+| Live widget | `fetch()` to a public API (API Ninjas) for quotes and excersices with loading and error handling. |
 | Validated log form | Functional form with custom inline validation messages. |
 | Responsive + semantic layout | Meaningful mobile/desktop differences; semantic landmarks and headings. |
 
 ## Layout sketch
 
-Add your **low-fidelity sketch** to the repository (for example `docs/sketch.png`) and link it here:
-
-![Low-fidelity layout sketch](docs/sketch.png)
-
-*Replace the image path above if you use a different filename. A simple boxed wireframe of nav, widget, gallery, and form is enough for the assignment.*
+Add your **sketch** to the repository (for example `docs/sketch.png`) and link it here:
+(docs/sketch.png)
 
 ## Live demo
 
@@ -70,7 +67,6 @@ Add your **low-fidelity sketch** to the repository (for example `docs/sketch.png
 
 ## Challenges & solutions
 
-- Exposing or protecting an API key on a static site
 - Getting a responsive grid or navigation to behave at a specific breakpoint
 - Validation edge cases (empty strings, min/max duration, date rules)
 
