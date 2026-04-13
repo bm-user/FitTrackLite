@@ -15,7 +15,7 @@ The site is implemented with **semantic HTML**, **CSS** (including variables for
 **Alex — “The consistent beginner”**
 
 - Wants to move more and build a routine, but gets overwhelmed by complex apps and too many metrics.
-- Cares about **time**, **how hard it felt**, and **rough calories or effort**—not elite performance data.
+- Cares about **time**, **how hard it felt**, and **rough calories or effort** not elite performance data.
 - Uses a phone for quick checks and a laptop when planning the week.
 - Success means **logging most sessions** and **recognizing progress** without dreading the tool.
 
