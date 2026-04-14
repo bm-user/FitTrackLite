@@ -16,7 +16,7 @@ Implementation uses **semantic HTML**, **CSS** (including variables aligned with
 
 - Wants to move more and build a routine without drowning in complex dashboards or paywalled apps.
 - Likes seeing **simple numbers** (workout count, calories, weekly bar) and **what to do next** (workout cards).
-- Uses **phone and laptop** expects the layout to stay usable when the grid stacks on small screens.
+- Uses **phone and laptop** and expects the layout to stay usable when the grid stacks on small screens.
 - Success means **logging sessions regularly**, **browsing workouts confidently**, and **trusting** validation messages on the add form.
 
 ## Problem
@@ -58,8 +58,6 @@ Low-fidelity / visual target for implementation:
 ![FitTrack Lite UI mockup — Dashboard, Workouts, Add Workout](docs/design-mockup.png)
 
 *Source: project mockup (`docs/design-mockup.png`). Implementation may simplify icons or data while keeping layout and hierarchy.*
-
-An editable **PowerPoint wireframe** is also available: [docs/FitTrackLite-wireframe.pptx](docs/FitTrackLite-wireframe.pptx).
 
 ## Live demo
 
