@@ -7,65 +7,12 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="token-preview__bar" aria-label="Sample header using design tokens">
-    <div class="token-preview__bar-inner">
-      FitTrack Lite — token preview (header gradient + height from CSS variables)
+  <header class="token-preview_bar" aria-label="Sample header using design tokens">
+    <div class="token-preview_bar-inner">
     </div>
   </header>
-
-  <main class="container token-preview" id="main">
-    <h1 class="token-preview__title">Design tokens check</h1>
-    <p class="token-preview__lead">
-      This page only confirms that global CSS variables in <code>css/styles.css</code> apply correctly.
-      It will be replaced by the real Dashboard in a later task.
-    </p>
-
-    <h2 class="visually-hidden">Color swatches</h2>
-    <ul class="token-preview__grid" role="list">
-      <li class="token-preview__swatch">
-        <div class="token-preview__swatch-slab" style="background: var(--color-primary);"></div>
-        Primary
-      </li>
-      <li class="token-preview__swatch">
-        <div class="token-preview__swatch-slab" style="background: var(--gradient-motivation);"></div>
-        Motivation gradient
-      </li>
-      <li class="token-preview__swatch">
-        <div class="token-preview__swatch-slab" style="background: var(--color-surface-card); border: 1px solid var(--color-border);"></div>
-        Card surface
-      </li>
-      <li class="token-preview__swatch">
-        <div class="token-preview__swatch-slab" style="background: var(--color-focus-bg); border: 1px solid var(--color-focus-border);"></div>
-        Focus strip
-      </li>
-    </ul>
-
-    <h2 class="visually-hidden">Sample cards and category tags</h2>
-    <div class="token-preview__row">
-      <article class="token-preview__card">
-        <p style="margin: 0 0 var(--space-sm); font-size: var(--font-size-sm); color: var(--color-text-secondary);">Stat card</p>
-        <p style="margin: 0; font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);">12</p>
-        <p style="margin: var(--space-xs) 0 0; font-size: var(--font-size-sm);">Total workouts</p>
-        <div class="token-preview__progress" style="margin-top: var(--space-md);" aria-hidden="true">
-          <div class="token-preview__progress-fill"></div>
-        </div>
-        <p style="margin: var(--space-xs) 0 0; font-size: var(--font-size-xs); color: var(--color-text-muted);">Weekly progress (sample 65%)</p>
-      </article>
-      <article class="token-preview__card token-preview__card--motivation">
-        <p style="margin: 0 0 var(--space-sm); font-weight: var(--font-weight-semibold);">Daily Motivation</p>
-        <p style="margin: 0; font-size: var(--font-size-sm); line-height: var(--line-height-relaxed);">Quote block uses motivation gradient tokens.</p>
-      </article>
-      <article class="token-preview__card token-preview__card--focus">
-        <p style="margin: 0; font-size: var(--font-size-sm);">Suggested focus strip uses focus background tokens.</p>
-      </article>
-    </div>
-
-    <p style="margin: 0 0 var(--space-sm); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-secondary);">Category tags</p>
-    <div class="token-preview__tags">
-      <span class="token-preview__tag token-preview__tag--cardio">Cardio</span>
-      <span class="token-preview__tag token-preview__tag--flex">Flexibility</span>
-      <span class="token-preview__tag token-preview__tag--strength">Strength</span>
-    </div>
+  <main>
+    
   </main>
 </body>
 </html>
