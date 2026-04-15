@@ -105,8 +105,6 @@
   --tag-strength-text: #e65100;
 
   /* Feedback */
-  --color-error: #c62828;
-  --color-error-bg: #ffebee;
   --color-success: #2e7d32;
 }
 
@@ -489,6 +487,55 @@ main {
   grid-template-columns: 1fr;
 }
 
+.workouts-assign-banner {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: #e8f5e9;
+  border: 1px solid var(--color-primary-muted);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.workouts-assign-banner.is-hidden {
+  display: none;
+}
+
+.workouts-assign-banner strong {
+  color: var(--color-primary);
+}
+
+.workouts-assign-banner a {
+  margin-left: var(--space-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.workouts-assign-banner__note {
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.workout-card--selectable {
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+
+.workout-card--selectable:hover {
+  border-color: var(--color-primary-muted);
+  box-shadow: var(--shadow-md);
+}
+
+.workout-card--selectable:focus {
+  outline: none;
+}
+
+.workout-card--selectable:focus-visible {
+  outline: 2px solid var(--color-primary-muted);
+  outline-offset: 2px;
+}
+
 .workout-grid_empty {
   grid-column: 1 / -1;
   margin: 0;
@@ -619,4 +666,189 @@ main {
 
 .btn-primary:hover {
   filter: brightness(1.05);
+}
+
+/* ----- Weekly planner (Dashboard) ----- */
+
+.weekly-planner {
+  margin-top: var(--space-2xl);
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.weekly-planner__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin: 0 0 var(--space-lg);
+}
+
+.weekly-planner__header svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.weekly-planner__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.planner-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 48rem) {
+  .planner-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.planner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.planner-card--done {
+  background: #e8f5e9;
+  border-color: var(--color-primary-muted);
+}
+
+.planner-card__day {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.planner-card__day-link {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+}
+
+.planner-card__day-link:hover {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.planner-card__day-link:focus-visible {
+  outline: 2px solid var(--color-primary-muted);
+  outline-offset: 2px;
+}
+
+.planner-card__items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.planner-card__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.planner-card__row input {
+  flex-shrink: 0;
+}
+
+.planner-card__row label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.planner-card__row--done label {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.planner-progress {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-surface-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.planner-progress__top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.planner-progress__top input {
+  flex-shrink: 0;
+}
+
+.planner-progress__title {
+  flex: 1;
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.planner-progress__pct {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.planner-progress__track {
+  height: var(--space-sm);
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.planner-progress__fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-header);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.planner-progress__meta {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.form-success {
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-success);
+  background: #e8f5e9;
+  border-radius: var(--radius-sm);
 }

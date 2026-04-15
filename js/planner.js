@@ -1,0 +1,159 @@
+(function () {
+  const STORAGE_KEY = "fittrack-weekly-planner";
+
+  const gridEl = document.getElementById("planner-grid");
+  const progressBarEl = document.getElementById("planner-progress-bar");
+  const progressPctEl = document.getElementById("planner-progress-pct");
+  const progressCountEl = document.getElementById("planner-progress-count");
+  const progressCheckboxEl = document.getElementById("planner-progress-checkbox");
+
+  const statPctEl = document.getElementById("stat-weekly-pct");
+  const statMetaEl = document.getElementById("stat-weekly-meta");
+  const statBarEl = document.getElementById("stat-weekly-bar");
+
+  if (!gridEl) return;
+
+  const PS = window.FitTrackPlannerState;
+  if (!PS) return;
+
+  const state = { weekKey: "", days: [] };
+
+  function loadState() {
+    const key = PS.mondayKey();
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed.weekKey === key && Array.isArray(parsed.days) && parsed.days.length === 7) {
+          const migrated = PS.migratePlannerDays(parsed.days);
+          const slim = PS.normalizePlannerDays(migrated);
+          state.weekKey = parsed.weekKey;
+          state.days = slim;
+          if (JSON.stringify(parsed.days) !== JSON.stringify(slim)) saveState();
+          return;
+        }
+      } catch (e) {}
+    }
+    state.weekKey = key;
+    state.days = PS.defaultPlannerDays();
+    saveState();
+  }
+
+  function saveState() {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ weekKey: state.weekKey, days: state.days })
+    );
+  }
+
+  function totalItemCount() {
+    let n = 0;
+    state.days.forEach(function (d) {
+      n += (d.items && d.items.length) || 0;
+    });
+    return n;
+  }
+
+  function completedItemCount() {
+    let n = 0;
+    state.days.forEach(function (d) {
+      (d.items || []).forEach(function (it) {
+        if (it.completed) n += 1;
+      });
+    });
+    return n;
+  }
+
+  function updateProgressUI() {
+    const total = totalItemCount();
+    const done = completedItemCount();
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    if (progressBarEl) progressBarEl.style.width = pct + "%";
+    if (progressPctEl) progressPctEl.textContent = pct + "%";
+    if (progressCountEl) {
+      progressCountEl.textContent =
+        total > 0
+          ? done + " / " + total + " workouts completed"
+          : "Add workouts to track progress";
+    }
+    if (progressCheckboxEl) {
+      progressCheckboxEl.checked = total > 0 && done === total;
+    }
+
+    if (statPctEl) statPctEl.textContent = pct + "%";
+    if (statMetaEl) {
+      statMetaEl.textContent =
+        total > 0 ? done + " / " + total + " checked in planner" : "No items in planner";
+    }
+    if (statBarEl) statBarEl.style.width = pct + "%";
+  }
+
+  function dayCardAllDone(day) {
+    const items = day.items || [];
+    if (!items.length) return false;
+    return items.every(function (it) {
+      return it.completed;
+    });
+  }
+
+  function render() {
+    gridEl.innerHTML = "";
+    const frag = document.createDocumentFragment();
+
+    state.days.forEach(function (day, dayIndex) {
+      const items = day.items || [];
+      const art = document.createElement("article");
+      art.className = "planner-card" + (dayCardAllDone(day) ? " planner-card--done" : "");
+
+      const dayEl = document.createElement("p");
+      dayEl.className = "planner-card__day";
+      const dayLink = document.createElement("a");
+      dayLink.className = "planner-card__day-link";
+      dayLink.href = "workouts.html?assignDay=" + encodeURIComponent(day.shortLabel);
+      dayLink.textContent = day.shortLabel;
+      dayLink.title = "Add another workout for " + day.shortLabel;
+      dayEl.appendChild(dayLink);
+
+      const listEl = document.createElement("div");
+      listEl.className = "planner-card__items";
+
+      items.forEach(function (item, itemIndex) {
+        const row = document.createElement("div");
+        row.className =
+          "planner-card__row" + (item.completed ? " planner-card__row--done" : "");
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        const safeUid = String(item.uid).replace(/[^a-zA-Z0-9_-]/g, "");
+        cb.id = "planner-" + dayIndex + "-" + itemIndex + "-" + safeUid;
+        cb.checked = !!item.completed;
+        cb.addEventListener("change", function () {
+          item.completed = cb.checked;
+          saveState();
+          row.classList.toggle("planner-card__row--done", item.completed);
+          art.classList.toggle("planner-card--done", dayCardAllDone(day));
+          updateProgressUI();
+        });
+
+        const lab = document.createElement("label");
+        lab.htmlFor = cb.id;
+        lab.textContent = item.title;
+
+        row.appendChild(cb);
+        row.appendChild(lab);
+        listEl.appendChild(row);
+      });
+
+      art.appendChild(dayEl);
+      art.appendChild(listEl);
+      frag.appendChild(art);
+    });
+
+    gridEl.appendChild(frag);
+    updateProgressUI();
+  }
+
+  loadState();
+  render();
+})();
