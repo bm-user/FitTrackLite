@@ -82,15 +82,40 @@
       </article>
       <article class="stat-card">
         <p class="stat-card_label">Weekly progress</p>
-        <p class="stat-card_value">65%</p>
+        <p class="stat-card_value" id="stat-weekly-pct">0%</p>
         <div class="stat-card_progress" aria-hidden="true">
-          <div class="stat-card_progress-fill"></div>
+          <div class="stat-card_progress-fill" id="stat-weekly-bar" style="width: 0%"></div>
         </div>
-        <p class="stat-card_meta">Sample progress bar</p>
+        <p class="stat-card_meta" id="stat-weekly-meta">0 / 7 days in planner</p>
       </article>
+    </section>
+
+    <section class="weekly-planner" id="weekly-planner" aria-labelledby="planner-heading">
+      <div class="weekly-planner__header">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/>
+        </svg>
+        <h2 class="weekly-planner__title" id="planner-heading">Weekly Planner</h2>
+      </div>
+
+      <div id="planner-grid" class="planner-grid"></div>
+
+      <div class="planner-progress">
+        <div class="planner-progress__top">
+          <input type="checkbox" id="planner-progress-checkbox" disabled aria-readonly="true" title="Reflects planner completion">
+          <p class="planner-progress__title">Weekly progress</p>
+          <p class="planner-progress__pct" id="planner-progress-pct">0%</p>
+        </div>
+        <div class="planner-progress__track" aria-hidden="true">
+          <div class="planner-progress__fill" id="planner-progress-bar"></div>
+        </div>
+        <p class="planner-progress__meta" id="planner-progress-count">0 / 7 workouts completed</p>
+      </div>
     </section>
   </main>
 
   <script src="js/nav.js" defer></script>
+  <script src="js/planner-state.js" defer></script>
+  <script src="js/planner.js" defer></script>
 </body>
 </html>

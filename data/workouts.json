@@ -14,33 +14,93 @@
       "calories": 400,
       "category": "cardio"
     },
+
     {
-      "id": "yoga",
-      "title": "Yoga",
+      "id": "yoga-sun-salutation",
+      "title": "Sun Salutation",
+      "durationMins": 20,
+      "calories": 120,
+      "category": "flexibility"
+    },
+    {
+      "id": "yoga-tree-pose",
+      "title": "Tree Pose",
+      "durationMins": 15,
+      "calories": 80,
+      "category": "flexibility"
+    },
+    {
+      "id": "yoga-downward-dog",
+      "title": "Downward Dog",
+      "durationMins": 20,
+      "calories": 100,
+      "category": "flexibility"
+    },
+
+    {
+      "id": "hiit-burpees",
+      "title": "Burpees",
+      "durationMins": 15,
+      "calories": 200,
+      "category": "cardio"
+    },
+    {
+      "id": "hiit-jump-squats",
+      "title": "Jump Squats",
+      "durationMins": 20,
+      "calories": 220,
+      "category": "cardio"
+    },
+    {
+      "id": "hiit-mountain-climbers",
+      "title": "Mountain Climbers",
+      "durationMins": 15,
+      "calories": 180,
+      "category": "cardio"
+    },
+
+    {
+      "id": "pilates-hundred",
+      "title": "Pilates Hundred",
       "durationMins": 20,
       "calories": 150,
       "category": "flexibility"
     },
     {
-      "id": "weight-lifting",
-      "title": "Weight lifting",
-      "durationMins": 45,
+      "id": "pilates-roll-up",
+      "title": "Roll-Up",
+      "durationMins": 15,
+      "calories": 120,
+      "category": "flexibility"
+    },
+    {
+      "id": "pilates-leg-circles",
+      "title": "Leg Circles",
+      "durationMins": 15,
+      "calories": 110,
+      "category": "flexibility"
+    },
+
+    {
+      "id": "weights-bench-press",
+      "title": "Bench Press",
+      "durationMins": 30,
+      "calories": 250,
+      "category": "strength"
+    },
+    {
+      "id": "weights-deadlifts",
+      "title": "Deadlifts",
+      "durationMins": 35,
       "calories": 300,
       "category": "strength"
     },
     {
-      "id": "hiit",
-      "title": "HIIT",
-      "durationMins": 25,
-      "calories": 350,
-      "category": "cardio"
-    },
-    {
-      "id": "pilates",
-      "title": "Pilates",
+      "id": "weights-squats",
+      "title": "Squats",
       "durationMins": 30,
-      "calories": 200,
-      "category": "flexibility"
+      "calories": 270,
+      "category": "strength"
     }
   ]
 }
