@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitTrack Lite — Dashboard</title>
+  <title>FitTrack Lite — Add Workout</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -61,34 +61,44 @@
       </button>
       <nav id="site-nav-menu" class="site-header_nav" aria-label="Main">
         <ul class="site-nav">
-          <li><a href="index.html" aria-current="page">Dashboard</a></li>
+          <li><a href="index.html">Dashboard</a></li>
           <li><a href="workouts.html">Workouts</a></li>
-          <li><a href="add-workout.html">Add Workout</a></li>
+          <li><a href="add-workout.html" aria-current="page">Add Workout</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container" id="main">
-    <h1 class="page-title">Dashboard</h1>
-    <section class="stat-grid" aria-label="Summary stats">
-      <article class="stat-card">
-        <p class="stat-card_label">Total workouts</p>
-        <p class="stat-card_value">12</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Calories burned</p>
-        <p class="stat-card_value">2400 kcal</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Weekly progress</p>
-        <p class="stat-card_value">65%</p>
-        <div class="stat-card_progress" aria-hidden="true">
-          <div class="stat-card_progress-fill"></div>
+    <h1 class="page-title">Add Workout</h1>
+
+    <form class="form-stack" action="#" method="post">
+      <div class="form-field">
+        <label for="workout-name">Workout name</label>
+        <input id="workout-name" name="workout-name" type="text" autocomplete="off">
+      </div>
+      <div class="form-field">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option>Cardio</option>
+          <option>Strength</option>
+          <option>Flexibility</option>
+        </select>
+      </div>
+      <div class="form-row-split">
+        <div class="form-field">
+          <label for="duration">Duration (mins)</label>
+          <input id="duration" name="duration" type="text" inputmode="numeric" autocomplete="off">
         </div>
-        <p class="stat-card_meta">Sample progress bar</p>
-      </article>
-    </section>
+        <div class="form-field">
+          <label for="calories">Calories burned</label>
+          <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">+ Add Workout</button>
+      </div>
+    </form>
   </main>
 
   <script src="js/nav.js" defer></script>

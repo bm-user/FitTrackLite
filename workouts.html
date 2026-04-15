@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitTrack Lite — Dashboard</title>
+  <title>FitTrack Lite — Workouts</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -61,8 +61,8 @@
       </button>
       <nav id="site-nav-menu" class="site-header_nav" aria-label="Main">
         <ul class="site-nav">
-          <li><a href="index.html" aria-current="page">Dashboard</a></li>
-          <li><a href="workouts.html">Workouts</a></li>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="workouts.html" aria-current="page">Workouts</a></li>
           <li><a href="add-workout.html">Add Workout</a></li>
         </ul>
       </nav>
@@ -70,27 +70,27 @@
   </header>
 
   <main class="container" id="main">
-    <h1 class="page-title">Dashboard</h1>
-    <section class="stat-grid" aria-label="Summary stats">
-      <article class="stat-card">
-        <p class="stat-card_label">Total workouts</p>
-        <p class="stat-card_value">12</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Calories burned</p>
-        <p class="stat-card_value">2400 kcal</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Weekly progress</p>
-        <p class="stat-card_value">65%</p>
-        <div class="stat-card_progress" aria-hidden="true">
-          <div class="stat-card_progress-fill"></div>
-        </div>
-        <p class="stat-card_meta">Sample progress bar</p>
-      </article>
+    <h1 class="page-title">Workouts</h1>
+
+    <div class="workouts-toolbar">
+      <div>
+        <label class="workouts-toolbar_label" for="category-filter">Filter</label>
+        <select id="category-filter" class="workouts-toolbar_search" aria-label="Filter by category">
+          <option value="all" selected>All</option>
+          <option value="cardio">Cardio</option>
+          <option value="flexibility">Flexibility</option>
+          <option value="strength">Strength</option>
+        </select>
+      </div>
+      <input id="workout-search" class="workouts-toolbar_search" type="search" name="q" placeholder="Search workouts…" autocomplete="off" aria-label="Search workouts">
+    </div>
+
+    <section id="workout-grid" class="workout-grid" aria-label="Workout library">
+      <p class="workout-grid_empty">Loading workouts…</p>
     </section>
   </main>
 
   <script src="js/nav.js" defer></script>
+  <script src="js/workouts.js" defer></script>
 </body>
 </html>

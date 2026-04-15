@@ -1,0 +1,46 @@
+{
+  "workouts": [
+    {
+      "id": "running",
+      "title": "Running",
+      "durationMins": 30,
+      "calories": 250,
+      "category": "cardio"
+    },
+    {
+      "id": "cycling",
+      "title": "Cycling",
+      "durationMins": 40,
+      "calories": 400,
+      "category": "cardio"
+    },
+    {
+      "id": "yoga",
+      "title": "Yoga",
+      "durationMins": 20,
+      "calories": 150,
+      "category": "flexibility"
+    },
+    {
+      "id": "weight-lifting",
+      "title": "Weight lifting",
+      "durationMins": 45,
+      "calories": 300,
+      "category": "strength"
+    },
+    {
+      "id": "hiit",
+      "title": "HIIT",
+      "durationMins": 25,
+      "calories": 350,
+      "category": "cardio"
+    },
+    {
+      "id": "pilates",
+      "title": "Pilates",
+      "durationMins": 30,
+      "calories": 200,
+      "category": "flexibility"
+    }
+  ]
+}
