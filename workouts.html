@@ -82,43 +82,15 @@
           <option value="strength">Strength</option>
         </select>
       </div>
-      <input class="workouts-toolbar_search" type="search" name="q" placeholder="Search workouts…" autocomplete="off" aria-label="Search workouts">
+      <input id="workout-search" class="workouts-toolbar_search" type="search" name="q" placeholder="Search workouts…" autocomplete="off" aria-label="Search workouts">
     </div>
 
-    <section class="workout-grid" aria-label="Workout library">
-      <article class="workout-card">
-        <h2 class="workout-card_title">Running</h2>
-        <p class="workout-card_meta">30 mins · 250 kcal</p>
-        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
-      </article>
-      <article class="workout-card">
-        <h2 class="workout-card_title">Cycling</h2>
-        <p class="workout-card_meta">40 mins · 400 kcal</p>
-        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
-      </article>
-      <article class="workout-card">
-        <h2 class="workout-card_title">Yoga</h2>
-        <p class="workout-card_meta">20 mins · 150 kcal</p>
-        <span class="workout-card_tag workout-card_tag--flex">Flexibility</span>
-      </article>
-      <article class="workout-card">
-        <h2 class="workout-card_title">Weight lifting</h2>
-        <p class="workout-card_meta">45 mins · 300 kcal</p>
-        <span class="workout-card_tag workout-card_tag--strength">Strength</span>
-      </article>
-      <article class="workout-card">
-        <h2 class="workout-card_title">HIIT</h2>
-        <p class="workout-card_meta">25 mins · 350 kcal</p>
-        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
-      </article>
-      <article class="workout-card">
-        <h2 class="workout-card_title">Pilates</h2>
-        <p class="workout-card_meta">30 mins · 200 kcal</p>
-        <span class="workout-card_tag workout-card_tag--flex">Flexibility</span>
-      </article>
+    <section id="workout-grid" class="workout-grid" aria-label="Workout library">
+      <p class="workout-grid_empty">Loading workouts…</p>
     </section>
   </main>
 
   <script src="js/nav.js" defer></script>
+  <script src="js/workouts.js" defer></script>
 </body>
 </html>
