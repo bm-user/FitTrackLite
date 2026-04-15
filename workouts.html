@@ -9,8 +9,57 @@
 <body>
   <header class="site-header">
     <div class="site-header_inner">
-      <a class="site-header_brand" href="index.html">FitTrack Lite</a>
-      <nav aria-label="Main">
+      <a class="site-header_brand" href="index.html">
+        <svg class="site-header_logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 87" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
+
+        <g transform="translate(0,87) scale(0.1,-0.1)"
+            fill="currentColor"
+            stroke="none">
+
+            <!-- Main runner shape (cleaned) -->
+            <path d="M410 660
+                    c-24 -24 -25 -48 -3 -80
+                    c16 -22 16 -24 -5 -38
+                    c-12 -8 -22 -20 -22 -26
+                    c0 -19 -51 -110 -79 -139
+                    c-33 -37 -54 -48 -115 -61
+                    c-54 -12 -81 -40 -56 -57
+                    c18 -12 150 -5 179 10
+                    c11 6 47 14 80 17
+                    c50 6 65 3 93 -14
+                    c19 -12 40 -33 46 -47
+                    c15 -32 56 -34 72 -4
+                    c25 45 -9 98 -93 149
+                    c-34 20 -36 24 -24 39
+                    c22 26 26 47 16 85
+                    c-6 21 -18 37 -30 41
+                    c-12 4 -6 12 15 28
+                    c18 14 25 25 25 50
+                    c0 20 -8 31 -30 43
+                    c-38 20 -46 19 -70 -5z"/>
+
+            <!-- Left arm/leg -->
+            <path d="M253 559
+                    c-30 -11 -38 -45 -19 -74
+                    c29 -44 96 -24 96 29
+                    c0 37 -39 59 -77 45z"/>
+
+            <!-- Right arm/leg -->
+            <path d="M553 543
+                    c-32 -21 -30 -66 2 -87
+                    c33 -22 48 -20 73 7
+                    c28 30 28 48 -1 75
+                    c-27 26 -44 27 -74 5z"/>
+
+        </g>
+        </svg>
+        <span>FitTrack Lite</span>
+      </a>
+      <button type="button" class="site-header_menu-btn" aria-expanded="false" aria-controls="site-nav-menu">
+        <span class="visually-hidden">Toggle menu</span>
+        <span class="site-header_menu-icon" aria-hidden="true"><span></span></span>
+      </button>
+      <nav id="site-nav-menu" class="site-header_nav" aria-label="Main">
         <ul class="site-nav">
           <li><a href="index.html">Dashboard</a></li>
           <li><a href="workouts.html" aria-current="page">Workouts</a></li>
@@ -21,6 +70,55 @@
   </header>
 
   <main class="container" id="main">
+    <h1 class="page-title">Workouts</h1>
+
+    <div class="workouts-toolbar">
+      <div>
+        <label class="workouts-toolbar_label" for="category-filter">Filter</label>
+        <select id="category-filter" class="workouts-toolbar_search" aria-label="Filter by category">
+          <option value="all" selected>All</option>
+          <option value="cardio">Cardio</option>
+          <option value="flexibility">Flexibility</option>
+          <option value="strength">Strength</option>
+        </select>
+      </div>
+      <input class="workouts-toolbar_search" type="search" name="q" placeholder="Search workouts…" autocomplete="off" aria-label="Search workouts">
+    </div>
+
+    <section class="workout-grid" aria-label="Workout library">
+      <article class="workout-card">
+        <h2 class="workout-card_title">Running</h2>
+        <p class="workout-card_meta">30 mins · 250 kcal</p>
+        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
+      </article>
+      <article class="workout-card">
+        <h2 class="workout-card_title">Cycling</h2>
+        <p class="workout-card_meta">40 mins · 400 kcal</p>
+        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
+      </article>
+      <article class="workout-card">
+        <h2 class="workout-card_title">Yoga</h2>
+        <p class="workout-card_meta">20 mins · 150 kcal</p>
+        <span class="workout-card_tag workout-card_tag--flex">Flexibility</span>
+      </article>
+      <article class="workout-card">
+        <h2 class="workout-card_title">Weight lifting</h2>
+        <p class="workout-card_meta">45 mins · 300 kcal</p>
+        <span class="workout-card_tag workout-card_tag--strength">Strength</span>
+      </article>
+      <article class="workout-card">
+        <h2 class="workout-card_title">HIIT</h2>
+        <p class="workout-card_meta">25 mins · 350 kcal</p>
+        <span class="workout-card_tag workout-card_tag--cardio">Cardio</span>
+      </article>
+      <article class="workout-card">
+        <h2 class="workout-card_title">Pilates</h2>
+        <p class="workout-card_meta">30 mins · 200 kcal</p>
+        <span class="workout-card_tag workout-card_tag--flex">Flexibility</span>
+      </article>
+    </section>
   </main>
+
+  <script src="js/nav.js" defer></script>
 </body>
 </html>
