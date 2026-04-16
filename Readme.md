@@ -35,8 +35,8 @@ Planned **multi-page** structure (three distinct views):
 
 | View | File (planned) | Purpose |
 |------|----------------|---------|
-| **Dashboard** | `index.html` | Header/nav, stat cards, daily motivation (API), suggested focus, recent workouts |
-| **Workouts** | `workouts.html` | Filter dropdown, search, responsive card grid (≥6 workouts), category tags |
+| **Dashboard** | `index.html` | Header/nav, stat cards, **weekly planner** (7 days, checkboxes, progress)—assign workouts from the library via day links; state in `localStorage`; optional future blocks: daily motivation (API), suggested focus, recent workouts |
+| **Workouts** | `workouts.html` | Filter dropdown, search, responsive card grid (≥6 workouts), category tags; **assign mode** with `?assignDay=Mon`…`Sun` appends picks to the planner |
 | **Add Workout** | `add-workout.html` | Full form, muscle → suggested exercises (local JS data), submit with custom validation |
 
 Shared **CSS variables** implement the mockup’s palette and spacing; **one complex responsive pattern** (e.g. workout grid: multi-column desktop → stacked mobile, and/or header/nav behavior) satisfies the rubric.
@@ -45,8 +45,8 @@ Shared **CSS variables** implement the mockup’s palette and spacing; **one com
 
 | Feature | Description |
 |--------|-------------|
-| Dashboard | Stats (e.g. total workouts, calories, weekly progress bar), API-driven motivation block, suggestion strip, recent workout cards |
-| Workouts gallery | ≥6 items as cards with icons/names/duration/calories/tags; **Filter** + **Search**; live filtering |
+| Dashboard | Stats (e.g. total workouts, calories, weekly progress bar); **weekly planner**: Mon–Sun cards, multiple workouts per day, check off items, bar/checkbox summary tied to planner completion; persisted in **`localStorage`** (`fittrack-weekly-planner`, week key = Monday date). Planned: API-driven motivation, suggestion strip, recent workout cards |
+| Workouts gallery | ≥6 items as cards with icons/names/duration/calories/tags; **Filter** + **Search**; live filtering; **assign to planner** from `workouts.html?assignDay=…` |
 | Add Workout | Name, category, duration, calories; muscle selector + **Get Exercises** → suggested list; **+ Add Workout**; JS validation + custom errors |
 | Live widget | `fetch()` from API Ninjas (e.g. quotes) in the Daily Motivation area; loading/error states |
 | Responsive + semantic | Landmark structure; layout that **changes meaningfully** between mobile and desktop |
@@ -68,9 +68,9 @@ Low-fidelity / visual target for implementation:
 ## Tech stack
 
 - HTML5, CSS3 (**custom properties** for theme colors)
-- JavaScript (DOM, `fetch`, validation, local arrays / maps for workouts and muscle → exercises)
+- JavaScript (DOM, `fetch` for `data/workouts.json`, planner state in **`localStorage`**, shared **`js/planner-state.js`** for week-scoped planner data)
 - Static hosting (Vercel / Netlify / GitHub Pages)
-- [API Ninjas](https://api-ninjas.com/api) for Daily Motivation content (API key; see [NOTES.md](NOTES.md))
+- [API Ninjas](https://api-ninjas.com/api) for Daily Motivation content (API key; see [NOTES.md](NOTES.md)) — optional / planned for dashboard quote block
 
 ## Challenges & solutions
 
@@ -82,4 +82,4 @@ See **[NOTES.md](NOTES.md)** for palette notes, screen inventory, API choice, an
 
 ## Summary
 
-A clean, modern FitTrack Lite experience: **dashboard** for motivation and progress, **workouts** for discovery, **add workout** for logging—with a unified green-and-card visual language.
+A clean, modern FitTrack Lite experience: **dashboard** with a **weekly planner** (library → assign → check off, all in the browser), **workouts** for discovery and planner assignment, **add workout** for logging—with a unified green-and-card visual language.
