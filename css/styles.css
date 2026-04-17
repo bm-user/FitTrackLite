@@ -567,13 +567,13 @@ main {
 
 .workout-card_title {
   margin: 0 0 var(--space-xs);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
 }
 
 .workout-card_meta {
   margin: 0;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   color: var(--color-text-secondary);
 }
 
@@ -582,7 +582,7 @@ main {
   margin-top: var(--space-md);
   padding: var(--space-2xs) var(--space-sm);
   border-radius: var(--radius-pill);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 }
 
@@ -902,7 +902,7 @@ main {
 
 .weekly-planner__title {
   margin: 0;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
 }
@@ -939,7 +939,7 @@ main {
 
 .planner-card__day {
   margin: 0 0 var(--space-sm);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
@@ -984,7 +984,7 @@ main {
 }
 
 .planner-card__row label {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
   cursor: pointer;
@@ -1018,13 +1018,13 @@ main {
 .planner-progress__title {
   flex: 1;
   margin: 0;
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
 }
 
 .planner-progress__pct {
   margin: 0;
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
 }
@@ -1047,7 +1047,7 @@ main {
 
 .planner-progress__meta {
   margin: 0;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   color: var(--color-text-secondary);
 }
 
