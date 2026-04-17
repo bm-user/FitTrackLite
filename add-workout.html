@@ -79,26 +79,34 @@
         <form class="form-stack" action="#" method="post" novalidate>
           <div class="form-field">
             <label for="workout-name">Workout name</label>
-            <input id="workout-name" name="workout-name" type="text" autocomplete="off" maxlength="120" required aria-describedby="workout-name-hint">
+            <input id="workout-name" name="workout-name" type="text" autocomplete="off" maxlength="120" required aria-describedby="workout-name-hint" placeholder="e.g. Morning run, Bench press">
             <p id="workout-name-hint" class="form-field-hint">Up to 120 characters.</p>
           </div>
           <div class="form-field">
             <label for="category">Category</label>
-            <select id="category" name="category">
-              <option>Cardio</option>
-              <option>Strength</option>
-              <option>Flexibility</option>
+            <select id="category" name="category" required aria-describedby="category-hint">
+              <option value="" disabled selected hidden>Select a category…</option>
+              <option value="Cardio">Cardio</option>
+              <option value="Strength">Strength</option>
+              <option value="Flexibility">Flexibility</option>
             </select>
+            <p id="category-hint" class="form-field-hint">Choose Cardio, Strength, or Flexibility.</p>
           </div>
           <div class="form-row-split">
             <div class="form-field">
-              <label for="duration">Duration (mins)</label>
-              <input id="duration" name="duration" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="duration-hint">
-              <p id="duration-hint" class="form-field-hint">Whole minutes, 1–1440.</p>
+              <label for="duration-value">Minutes or reps</label>
+              <div class="form-duration-row">
+                <input id="duration-value" name="duration-value" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="duration-hint" placeholder="e.g. 30 or 12">
+                <select id="duration-unit" name="duration-unit" aria-label="Use value as minutes or repetitions">
+                  <option value="min">Minutes</option>
+                  <option value="reps">Reps</option>
+                </select>
+              </div>
+              <p id="duration-hint" class="form-field-hint">Minutes: 1–1440 · Reps: 1–999.</p>
             </div>
             <div class="form-field">
               <label for="calories">Calories burned</label>
-              <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="calories-hint">
+              <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="calories-hint" placeholder="e.g. 250">
               <p id="calories-hint" class="form-field-hint">Whole number, 0–20000.</p>
             </div>
           </div>

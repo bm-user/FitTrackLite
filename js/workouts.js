@@ -105,9 +105,20 @@
 
     const meta = document.createElement("p");
     meta.className = "workout-card_meta";
-    const mins = workout.durationMins != null ? workout.durationMins + " mins" : "—";
+    function durationPart(w) {
+      var r = w.reps;
+      if (r != null && r !== "") {
+        var rn = Number(r);
+        if (!isNaN(rn) && isFinite(rn)) return rn + " reps";
+      }
+      if (w.durationMins != null && w.durationMins !== "") {
+        return w.durationMins + " mins";
+      }
+      return "—";
+    }
+    const durStr = durationPart(workout);
     const kcal = workout.calories != null ? workout.calories + " kcal" : "—";
-    meta.textContent = mins + " · " + kcal;
+    meta.textContent = durStr + " · " + kcal;
 
     const tag = document.createElement("span");
     tag.className =
@@ -182,6 +193,8 @@
         labelForCategory(w.category) +
         " " +
         (w.durationMins || "") +
+        " " +
+        (w.reps || "") +
         " " +
         (w.calories || "")
       ).toLowerCase();

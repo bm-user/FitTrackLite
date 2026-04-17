@@ -11,8 +11,10 @@
   };
 
   var NAME_MAX = 120;
-  var DURATION_MIN = 1;
-  var DURATION_MAX = 1440;
+  var DURATION_MIN_MIN = 1;
+  var DURATION_MAX_MIN = 1440;
+  var REPS_MIN = 1;
+  var REPS_MAX = 999;
   var CALORIES_MIN = 0;
   var CALORIES_MAX = 20000;
 
@@ -33,7 +35,7 @@
       summary.classList.add("is-hidden");
       summary.textContent = "";
     }
-    ["workout-name", "duration", "calories"].forEach(function (id) {
+    ["workout-name", "category", "duration-value", "duration-unit", "calories"].forEach(function (id) {
       var input = document.getElementById(id);
       if (input) {
         input.classList.remove("is-invalid");
@@ -97,10 +99,11 @@
 
     var nameEl = document.getElementById("workout-name");
     var catEl = document.getElementById("category");
-    var durEl = document.getElementById("duration");
+    var durValEl = document.getElementById("duration-value");
+    var durUnitEl = document.getElementById("duration-unit");
     var calEl = document.getElementById("calories");
 
-    if (!nameEl || !catEl || !durEl || !calEl) {
+    if (!nameEl || !catEl || !durValEl || !durUnitEl || !calEl) {
       return { ok: false, fieldErrors: [] };
     }
 
@@ -114,9 +117,19 @@
       });
     }
 
-    var dur = parseWholeNumber(durEl.value, DURATION_MIN, DURATION_MAX, "Duration");
+    var catLabel = catEl.value.trim();
+    if (!catLabel) {
+      fieldErrors.push({ id: "category", message: "Select a category." });
+    }
+
+    var unit = durUnitEl.value === "reps" ? "reps" : "min";
+    var durLabel = unit === "min" ? "Minutes" : "Reps";
+    var dMin = unit === "min" ? DURATION_MIN_MIN : REPS_MIN;
+    var dMax = unit === "min" ? DURATION_MAX_MIN : REPS_MAX;
+
+    var dur = parseWholeNumber(durValEl.value, dMin, dMax, durLabel);
     if (!dur.ok) {
-      fieldErrors.push({ id: "duration", message: dur.message });
+      fieldErrors.push({ id: "duration-value", message: dur.message });
     }
 
     var cal = parseWholeNumber(calEl.value, CALORIES_MIN, CALORIES_MAX, "Calories burned");
@@ -131,10 +144,17 @@
     return {
       ok: true,
       name: name,
-      catLabel: catEl.value,
-      durationMins: dur.value,
+      catLabel: catLabel,
+      durationMins: unit === "min" ? dur.value : null,
+      reps: unit === "reps" ? dur.value : null,
       calories: cal.value,
     };
+  }
+
+  function formatDurationSummary(result) {
+    if (result.reps != null) return result.reps + " reps";
+    if (result.durationMins != null) return result.durationMins + " min";
+    return "";
   }
 
   form.addEventListener("submit", function (e) {
@@ -161,6 +181,7 @@
       title: result.name,
       category: category,
       durationMins: result.durationMins,
+      reps: result.reps,
       calories: result.calories,
     });
 
@@ -181,11 +202,13 @@
       "Saved “" +
       result.name +
       "” (" +
-      result.durationMins +
-      " min, " +
+      formatDurationSummary(result) +
+      ", " +
       result.calories +
       " kcal). View it on Workouts.";
 
     form.reset();
+    var unitSel = document.getElementById("duration-unit");
+    if (unitSel) unitSel.value = "min";
   });
 })();

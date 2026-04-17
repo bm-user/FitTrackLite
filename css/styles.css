@@ -9,6 +9,20 @@
   --color-surface: #ffffff;
   --color-surface-elevated: #fafafa;
   --color-surface-card: #f5f5f5;
+  /* Soft light-green tint for cards & planner (subtle gradient, not flat white) */
+  --gradient-surface-card: linear-gradient(
+    150deg,
+    #f6fbf6 0%,
+    #e8f5e9 42%,
+    #f1f8f2 100%
+  );
+  --gradient-surface-card-strong: linear-gradient(
+    155deg,
+    #e8f5e9 0%,
+    #dcedc8 55%,
+    #f1f8e9 100%
+  );
+  --color-card-border-soft: rgba(46, 125, 50, 0.14);
   --color-border: #e0e0e0;
   --color-border-strong: #bdbdbd;
 
@@ -86,7 +100,7 @@
 
   /* Full-page background (Unsplash: two women practicing yoga in a park) */
   --page-bg-image: url("https://images.unsplash.com/photo-1758274526399-a541ea816be9?auto=format&fit=crop&w=1920&q=80");
-  --page-bg-overlay: rgba(255, 255, 255, 0.40);
+  --page-bg-overlay: rgba(255, 255, 255, 0.50);
 
   /* Layout */
   --layout-max-width: 72rem;
@@ -406,6 +420,7 @@ main {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
+  color: #111111;
 }
 
 .page-lead {
@@ -432,8 +447,8 @@ main {
 
 .stat-card {
   padding: var(--space-lg);
-  background: var(--color-surface-card);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -574,8 +589,8 @@ main {
   text-align: center;
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
-  background: var(--color-surface-card);
-  border: 1px dashed var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px dashed var(--color-card-border-soft);
   border-radius: var(--radius-md);
 }
 
@@ -587,8 +602,8 @@ main {
 
 .workout-card {
   padding: var(--space-lg);
-  background: var(--color-surface-card);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -649,10 +664,29 @@ main {
   margin-top: 0;
 }
 
+.add-workout-form-col .form-field label {
+  color: #111111;
+  font-weight: var(--font-weight-bold);
+}
+
+.add-workout-form-col .form-field-hint {
+  color: var(--color-text-secondary);
+}
+
+.add-workout-form-col .form-field input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.add-workout-layout .exercise-db-search-label {
+  color: #111111;
+  font-weight: var(--font-weight-bold);
+}
+
 .exercise-db-panel {
   padding: var(--space-lg);
-  background: var(--color-surface-card);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -742,15 +776,15 @@ main {
   text-align: center;
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  background: var(--color-surface);
-  border: 1px dashed var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px dashed var(--color-card-border-soft);
   border-radius: var(--radius-md);
 }
 
 .exercise-db-card {
   padding: var(--space-md);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
 }
@@ -771,8 +805,8 @@ main {
 .exercise-db-card_media {
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--color-card-border-soft);
 }
 
 .exercise-db-card_gif,
@@ -790,8 +824,8 @@ main {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-muted);
   text-align: center;
-  background: var(--color-surface-card);
-  border-top: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.35);
+  border-top: 1px solid var(--color-card-border-soft);
 }
 
 .exercise-db-card_details {
@@ -842,6 +876,24 @@ main {
   border-radius: var(--radius-md);
   font: inherit;
   background: var(--input-bg);
+}
+
+.form-duration-row {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: stretch;
+}
+
+.form-duration-row input {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+}
+
+.form-duration-row select {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 7.5rem;
 }
 
 .form-row-split {
@@ -908,8 +960,8 @@ main {
 .weekly-planner {
   margin-top: var(--space-2xl);
   padding: var(--space-xl);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -953,16 +1005,17 @@ main {
   align-items: center;
   text-align: center;
   padding: var(--space-md);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  transition: background var(--duration-fast) var(--ease-standard);
+  transition: background var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
 }
 
 .planner-card--done {
-  background: #e8f5e9;
-  border-color: var(--color-primary-muted);
+  background: var(--gradient-surface-card-strong);
+  border-color: rgba(67, 160, 71, 0.35);
 }
 
 .planner-card__day-row {
@@ -990,7 +1043,7 @@ main {
   padding: var(--space-2xs) var(--space-sm);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-primary-muted);
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.75);
   color: var(--color-primary);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
@@ -1044,9 +1097,9 @@ main {
 .planner-progress {
   margin-top: var(--space-xl);
   padding: var(--space-lg);
-  background: var(--color-surface-card);
+  background: var(--gradient-surface-card);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-card-border-soft);
 }
 
 .planner-progress__top {
