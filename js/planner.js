@@ -106,14 +106,21 @@
       const art = document.createElement("article");
       art.className = "planner-card" + (dayCardAllDone(day) ? " planner-card--done" : "");
 
-      const dayEl = document.createElement("p");
-      dayEl.className = "planner-card__day";
-      const dayLink = document.createElement("a");
-      dayLink.className = "planner-card__day-link";
-      dayLink.href = "workouts.html?assignDay=" + encodeURIComponent(day.shortLabel);
-      dayLink.textContent = day.shortLabel;
-      dayLink.title = "Add another workout for " + day.shortLabel;
-      dayEl.appendChild(dayLink);
+      const dayRow = document.createElement("div");
+      dayRow.className = "planner-card__day-row";
+
+      const dayName = document.createElement("span");
+      dayName.className = "planner-card__day-name";
+      dayName.textContent = day.shortLabel;
+
+      const addBtn = document.createElement("a");
+      addBtn.className = "planner-card__add-btn";
+      addBtn.href = "workouts.html?assignDay=" + encodeURIComponent(day.shortLabel);
+      addBtn.textContent = "Add";
+      addBtn.setAttribute("aria-label", "Add workout for " + day.shortLabel);
+
+      dayRow.appendChild(dayName);
+      dayRow.appendChild(addBtn);
 
       const listEl = document.createElement("div");
       listEl.className = "planner-card__items";
@@ -145,7 +152,7 @@
         listEl.appendChild(row);
       });
 
-      art.appendChild(dayEl);
+      art.appendChild(dayRow);
       art.appendChild(listEl);
       frag.appendChild(art);
     });

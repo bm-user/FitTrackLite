@@ -84,6 +84,10 @@
   --duration-normal: 220ms;
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
+  /* Full-page background (Unsplash: two women practicing yoga in a park) */
+  --page-bg-image: url("https://images.unsplash.com/photo-1758274526399-a541ea816be9?auto=format&fit=crop&w=1920&q=80");
+  --page-bg-overlay: rgba(255, 255, 255, 0.40);
+
   /* Layout */
   --layout-max-width: 72rem;
   --layout-padding-x: var(--space-md);
@@ -133,6 +137,30 @@ body {
   font-weight: var(--font-weight-normal);
   color: var(--color-text);
   background-color: var(--color-surface);
+  background-image: linear-gradient(var(--page-bg-overlay), var(--page-bg-overlay)),
+    var(--page-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    background-attachment: fixed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 img {
@@ -937,8 +965,16 @@ main {
   border-color: var(--color-primary-muted);
 }
 
-.planner-card__day {
+.planner-card__day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
   margin: 0 0 var(--space-sm);
+}
+
+.planner-card__day-name {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
@@ -946,19 +982,29 @@ main {
   letter-spacing: 0.04em;
 }
 
-.planner-card__day-link {
-  color: inherit;
-  font-weight: inherit;
-  text-decoration: none;
-  border-bottom: 1px dashed currentColor;
-}
-
-.planner-card__day-link:hover {
+.planner-card__add-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-primary-muted);
+  background: var(--color-surface);
   color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  line-height: 1.2;
 }
 
-.planner-card__day-link:focus-visible {
+.planner-card__add-btn:hover {
+  background: #e8f5e9;
+  border-color: var(--color-primary);
+  color: var(--color-primary-hover);
+}
+
+.planner-card__add-btn:focus-visible {
   outline: 2px solid var(--color-primary-muted);
   outline-offset: 2px;
 }

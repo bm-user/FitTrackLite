@@ -74,11 +74,11 @@
     <section class="stat-grid" aria-label="Summary stats">
       <article class="stat-card">
         <p class="stat-card_label">Total workouts</p>
-        <p class="stat-card_value">12</p>
+        <p class="stat-card_value" id="stat-total-workouts" aria-live="polite">0</p>
       </article>
       <article class="stat-card">
         <p class="stat-card_label">Calories burned</p>
-        <p class="stat-card_value">2400 kcal</p>
+        <p class="stat-card_value" id="stat-total-calories" aria-live="polite">0 kcal</p>
       </article>
       <article class="stat-card">
         <p class="stat-card_label">Weekly progress</p>
@@ -121,6 +121,7 @@
     </div>
   </footer>
 
+  <script src="js/dashboard-stats.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/planner-state.js" defer></script>
   <script src="js/planner.js" defer></script>
