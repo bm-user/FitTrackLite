@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Exercise demos: same-origin GET /api/exercisedb (Vercel serverless). Set EXERCISEDB_RAPIDAPI_KEY in Vercel → Environment Variables. -->
+  <meta name="fittrack-exercisedb-proxy" content="/api/exercisedb">
   <title>FitTrack Lite — Add Workout</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -72,33 +74,60 @@
   <main class="container" id="main">
     <h1 class="page-title">Add Workout</h1>
 
-    <form class="form-stack" action="#" method="post">
-      <div class="form-field">
-        <label for="workout-name">Workout name</label>
-        <input id="workout-name" name="workout-name" type="text" autocomplete="off">
+    <div class="add-workout-layout">
+      <div class="add-workout-form-col">
+        <form class="form-stack" action="#" method="post" novalidate>
+          <div class="form-field">
+            <label for="workout-name">Workout name</label>
+            <input id="workout-name" name="workout-name" type="text" autocomplete="off" maxlength="120" required aria-describedby="workout-name-hint">
+            <p id="workout-name-hint" class="form-field-hint">Up to 120 characters.</p>
+          </div>
+          <div class="form-field">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <option>Cardio</option>
+              <option>Strength</option>
+              <option>Flexibility</option>
+            </select>
+          </div>
+          <div class="form-row-split">
+            <div class="form-field">
+              <label for="duration">Duration (mins)</label>
+              <input id="duration" name="duration" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="duration-hint">
+              <p id="duration-hint" class="form-field-hint">Whole minutes, 1–1440.</p>
+            </div>
+            <div class="form-field">
+              <label for="calories">Calories burned</label>
+              <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="calories-hint">
+              <p id="calories-hint" class="form-field-hint">Whole number, 0–20000.</p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">+ Add Workout</button>
+          </div>
+        </form>
       </div>
-      <div class="form-field">
-        <label for="category">Category</label>
-        <select id="category" name="category">
-          <option>Cardio</option>
-          <option>Strength</option>
-          <option>Flexibility</option>
-        </select>
-      </div>
-      <div class="form-row-split">
-        <div class="form-field">
-          <label for="duration">Duration (mins)</label>
-          <input id="duration" name="duration" type="text" inputmode="numeric" autocomplete="off">
+
+      <aside class="exercise-db-panel" aria-label="Exercise demos">
+        <h2 class="exercise-db-panel_title">Look up a demo</h2>
+        <p class="exercise-db-panel_intro">
+          Enter a <strong>muscle</strong> (e.g. triceps), <strong>body area</strong> (e.g. chest), or <strong>exercise name</strong> (e.g. bench press), then search to see a short demo—video when available, otherwise an animated preview. Exercise data from
+          <a href="https://github.com/exercisedb/exercisedb-api" rel="noopener noreferrer">ExerciseDB</a>.
+        </p>
+
+        <div class="exercise-db-search-block">
+          <label for="exercisedb-search" class="exercise-db-search-label">Muscle or exercise name</label>
+          <div class="exercise-db-search-row">
+            <input id="exercisedb-search" class="exercise-db-search-input" type="search" placeholder="e.g. bench press, triceps, chest" autocomplete="off" aria-describedby="exercisedb-search-hint">
+            <button type="button" class="btn-primary exercise-db-search-btn" id="exercisedb-search-btn">Search</button>
+          </div>
+          <p id="exercisedb-search-hint" class="form-field-hint">Press Enter or Search. We match muscle or body-part lists when we can; otherwise we search by exercise name.</p>
         </div>
-        <div class="form-field">
-          <label for="calories">Calories burned</label>
-          <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off">
-        </div>
-      </div>
-      <div class="form-actions">
-        <button type="submit" class="btn-primary">+ Add Workout</button>
-      </div>
-    </form>
+
+        <p id="exercisedb-status" class="exercise-db-status" role="status" aria-live="polite"></p>
+        <div id="exercisedb-results" class="exercise-db-results"></div>
+      </aside>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -110,5 +139,6 @@
 
   <script src="js/nav.js" defer></script>
   <script src="js/add-workout.js" defer></script>
+  <script src="js/exercise-db-search.js" defer></script>
 </body>
 </html>
