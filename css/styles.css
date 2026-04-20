@@ -398,12 +398,18 @@ a:hover {
   }
 
   .site-header_nav .site-nav a {
-    padding: var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   }
 
+  .site-header_nav .site-nav a:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
   .site-header_nav .site-nav a[aria-current="page"] {
-    border-bottom-color: currentColor;
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: inset 3px 0 0 rgba(255, 255, 255, 0.85);
   }
 
   .site-header_nav .site-nav li:last-child a {
@@ -488,13 +494,22 @@ a:hover {
 .site-nav a {
   display: block;
   font-weight: var(--font-weight-medium);
-  padding: var(--space-xs) 0;
-  border-bottom: 2px solid transparent;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  transition: background var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.site-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .site-nav a[aria-current="page"] {
-  border-bottom-color: currentColor;
   font-weight: var(--font-weight-semibold);
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* Main content area */
@@ -672,13 +687,84 @@ main {
   display: none;
 }
 
-.workouts-assign-banner strong {
+.workouts-assign-banner_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-md);
+}
+
+@media (min-width: 36rem) {
+  .workouts-assign-banner_inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+}
+
+.workouts-assign-banner_message {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: var(--line-height-body);
+}
+
+.workouts-assign-banner_actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.workouts-assign-banner_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-md);
+  min-height: 2.25rem;
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.workouts-assign-banner_btn--done {
+  border: none;
+  background: var(--gradient-header);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.workouts-assign-banner_btn--done:hover {
+  filter: brightness(1.06);
+}
+
+.workouts-assign-banner_btn--cancel {
+  border: 1px solid var(--color-primary-muted);
+  background: var(--color-surface);
   color: var(--color-primary);
 }
 
-.workouts-assign-banner a {
-  margin-left: var(--space-md);
-  font-weight: var(--font-weight-medium);
+.workouts-assign-banner_btn--cancel:hover {
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.workouts-assign-banner_btn:focus-visible {
+  outline: 2px solid var(--color-primary-muted);
+  outline-offset: 2px;
+}
+
+.workouts-assign-banner strong {
+  color: var(--color-primary);
 }
 
 .workouts-assign-banner__note {
@@ -688,12 +774,14 @@ main {
   color: var(--color-text-muted);
 }
 
-.workout-card--selectable {
+.workout-card--interactive {
   cursor: pointer;
-  transition: box-shadow var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+  transition: box-shadow var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    filter var(--duration-fast) var(--ease-standard);
 }
 
-.workout-card--selectable:hover {
+.workout-card--interactive:hover {
   border-color: var(--color-primary-muted);
   box-shadow: var(--shadow-md);
 }
@@ -705,6 +793,24 @@ main {
 .workout-card--selectable:focus-visible {
   outline: 2px solid var(--color-primary-muted);
   outline-offset: 2px;
+}
+
+.workout-card--interactive.workout-card--selected {
+  border-color: var(--color-primary);
+  box-shadow:
+    0 0 0 2px rgba(56, 142, 60, 0.38),
+    var(--shadow-md);
+  background: linear-gradient(
+    155deg,
+    #f1f8f3 0%,
+    #e8f5e9 52%,
+    #f5faf6 100%
+  );
+}
+
+.workout-card--interactive.workout-card--selected:hover {
+  border-color: var(--color-primary-hover);
+  filter: brightness(1.02);
 }
 
 .workout-grid_empty {
@@ -1094,8 +1200,17 @@ main {
 .weekly-planner__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: var(--space-sm);
   margin: 0 0 var(--space-lg);
+}
+
+.weekly-planner__header-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
 }
 
 .weekly-planner__header svg {
@@ -1103,6 +1218,42 @@ main {
   height: 1.75rem;
   color: var(--color-primary);
   flex-shrink: 0;
+}
+
+.weekly-planner__clear-all {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xs) var(--space-md);
+  min-height: 2.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(176, 74, 61, 0.45);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.weekly-planner__clear-all:hover:not(:disabled) {
+  border-color: rgba(176, 74, 61, 0.75);
+  background: rgba(176, 74, 61, 0.08);
+  color: var(--color-text);
+}
+
+.weekly-planner__clear-all:focus-visible {
+  outline: 2px solid var(--color-primary-muted);
+  outline-offset: 2px;
+}
+
+.weekly-planner__clear-all:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .weekly-planner__title {
@@ -1232,11 +1383,12 @@ main {
 }
 
 .planner-card__row--done .planner-card__row-label {
-  color: var(--color-text-muted);
+  color: var(--color-text);
+  opacity: 0.58;
 }
 
 .planner-card__row--done .planner-card__row-title {
-  text-decoration: line-through;
+  text-decoration: none;
 }
 
 .form-success {

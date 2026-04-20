@@ -28,6 +28,44 @@
   const assignDay =
     assignDayRaw && VALID_PLANNER_DAYS.includes(assignDayRaw) ? assignDayRaw : null;
 
+  function assignSnapshotKey() {
+    return assignDay ? "fittrack-assign-snapshot-" + assignDay : "";
+  }
+
+  /** Planner JSON before this assign session — restored if user clicks Cancel */
+  function captureAssignSnapshot() {
+    if (!assignDay) return;
+    try {
+      var k = assignSnapshotKey();
+      if (k && !sessionStorage.getItem(k)) {
+        sessionStorage.setItem(k, localStorage.getItem(PLANNER_KEY) || "");
+      }
+    } catch (e) {}
+  }
+
+  function commitAssignSnapshot() {
+    try {
+      var k = assignSnapshotKey();
+      if (k) sessionStorage.removeItem(k);
+    } catch (e) {}
+  }
+
+  function restoreAssignSnapshotAndNavigate(url) {
+    try {
+      var k = assignSnapshotKey();
+      if (k) {
+        var snap = sessionStorage.getItem(k);
+        if (snap !== null) {
+          localStorage.setItem(PLANNER_KEY, snap);
+        }
+        sessionStorage.removeItem(k);
+      }
+    } catch (e) {}
+    window.location.href = url;
+  }
+
+  captureAssignSnapshot();
+
   const CATEGORY_LABEL = {
     cardio: "Cardio",
     flexibility: "Flexibility",
@@ -42,7 +80,25 @@
 
   let allWorkouts = [];
 
-  function assignWorkoutToPlannerDay(shortLabel, workout) {
+  /** Identifies a card so selection survives filter/re-render in assign mode */
+  function workoutKey(w) {
+    if (w && w.id != null && String(w.id) !== "") return String(w.id);
+    var dm = w && w.durationMins;
+    var rp = w && w.reps;
+    return (
+      String((w && w.title) || "") +
+      "|" +
+      String((w && w.category) || "") +
+      "|" +
+      String(dm != null && dm !== "" ? dm : "") +
+      "|" +
+      String(rp != null && rp !== "" ? rp : "")
+    );
+  }
+
+  var lastSelectedWorkoutKey = null;
+
+  function loadPlannerStateObject() {
     const key = PS.mondayKey();
     let raw = localStorage.getItem(PLANNER_KEY);
     let state = null;
@@ -61,6 +117,48 @@
     } else {
       state.days = PS.migratePlannerDays(state.days);
     }
+    state.days = PS.normalizePlannerDays(state.days);
+    return state;
+  }
+
+  /** Planner row → catalog workout match (same rules as assignWorkoutToPlannerDay writes) */
+  function plannerItemMatchesWorkout(item, w) {
+    if (!item || !w || String(item.title) !== String(w.title)) return false;
+    var hasRep = w.reps != null && w.reps !== "";
+    var hasDur = w.durationMins != null && w.durationMins !== "";
+    if (hasRep) {
+      var wr = Number(w.reps);
+      var ir = item.reps != null ? Number(item.reps) : NaN;
+      if (wr !== ir) return false;
+    }
+    if (hasDur) {
+      var wm = Number(w.durationMins);
+      var im =
+        item.durationMins != null ? Number(item.durationMins) : NaN;
+      if (wm !== im) return false;
+    }
+    return true;
+  }
+
+  /** Every catalog workoutKey that appears on this planner day (for multi-highlight in assign mode) */
+  function assignedWorkoutKeysForDay(shortLabel) {
+    var keys = new Set();
+    var state = loadPlannerStateObject();
+    var day = state.days.find(function (d) {
+      return d.shortLabel === shortLabel;
+    });
+    if (!day || !Array.isArray(day.items)) return keys;
+    day.items.forEach(function (item) {
+      var match = allWorkouts.find(function (w) {
+        return plannerItemMatchesWorkout(item, w);
+      });
+      if (match) keys.add(workoutKey(match));
+    });
+    return keys;
+  }
+
+  function assignWorkoutToPlannerDay(shortLabel, workout) {
+    let state = loadPlannerStateObject();
     const day = state.days.find(function (d) {
       return d.shortLabel === shortLabel;
     });
@@ -89,11 +187,27 @@
     if (!assignDay || !assignBanner) return;
     assignBanner.classList.remove("is-hidden");
     assignBanner.innerHTML =
-      "Add workouts for <strong>" +
+      '<div class="workouts-assign-banner_inner">' +
+      '<p class="workouts-assign-banner_message">Add workouts for <strong>' +
       DAY_LONG[assignDay] +
-      '</strong>. Click cards to add each one. ' +
-      '<a href="index.html#weekly-planner">Done</a> · ' +
-      '<a href="workouts.html">Cancel</a>';
+      "</strong>. Click cards to add each one.</p>" +
+      '<div class="workouts-assign-banner_actions">' +
+      '<a class="workouts-assign-banner_btn workouts-assign-banner_btn--done" href="index.html#weekly-planner" id="assign-done-btn">Done</a>' +
+      '<button type="button" class="workouts-assign-banner_btn workouts-assign-banner_btn--cancel" id="assign-cancel-btn">Cancel</button>' +
+      "</div></div>";
+
+    var doneBtn = document.getElementById("assign-done-btn");
+    if (doneBtn) {
+      doneBtn.addEventListener("click", function () {
+        commitAssignSnapshot();
+      });
+    }
+    var cancelBtn = document.getElementById("assign-cancel-btn");
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", function () {
+        restoreAssignSnapshotAndNavigate("workouts.html");
+      });
+    }
   }
 
   function tagClassForCategory(category) {
@@ -104,7 +218,7 @@
     return CATEGORY_LABEL[category] || category;
   }
 
-  function createCard(workout) {
+  function createCard(workout, assignedKeySet) {
     const article = document.createElement("article");
     article.className = "workout-card";
 
@@ -136,16 +250,32 @@
 
     article.append(h2, meta, tag);
 
-    if (assignDay) {
-      article.classList.add("workout-card--selectable");
-      article.tabIndex = 0;
-      article.setAttribute("role", "button");
-      article.setAttribute(
-        "aria-label",
-        "Assign " + workout.title + " to " + DAY_LONG[assignDay]
-      );
-      article.addEventListener("click", function () {
+    article.classList.add("workout-card--interactive");
+
+    var wk = workoutKey(workout);
+    if (
+      assignDay &&
+      assignedKeySet &&
+      assignedKeySet.has(wk)
+    ) {
+      article.classList.add("workout-card--selected");
+    } else if (!assignDay && lastSelectedWorkoutKey === wk) {
+      article.classList.add("workout-card--selected");
+    }
+
+    article.addEventListener("click", function () {
+      if (assignDay) {
         if (!assignWorkoutToPlannerDay(assignDay, workout)) return;
+        article.classList.add("workout-card--selected");
+      } else {
+        lastSelectedWorkoutKey = wk;
+        grid.querySelectorAll(".workout-card--selected").forEach(function (el) {
+          el.classList.remove("workout-card--selected");
+        });
+        article.classList.add("workout-card--selected");
+      }
+
+      if (assignDay && assignBanner) {
         let note = document.getElementById("assign-added-note");
         if (!note) {
           note = document.createElement("p");
@@ -154,8 +284,19 @@
           note.setAttribute("role", "status");
           assignBanner.appendChild(note);
         }
-        note.textContent = "Added “" + workout.title + "”. Pick another or open Dashboard when finished.";
-      });
+        note.textContent =
+          "Added “" + workout.title + "”. Pick another or open Dashboard when finished.";
+      }
+    });
+
+    if (assignDay) {
+      article.classList.add("workout-card--selectable");
+      article.tabIndex = 0;
+      article.setAttribute("role", "button");
+      article.setAttribute(
+        "aria-label",
+        "Assign " + workout.title + " to " + DAY_LONG[assignDay]
+      );
       article.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -180,8 +321,9 @@
     }
 
     const frag = document.createDocumentFragment();
+    var assignedKeySet = assignDay ? assignedWorkoutKeysForDay(assignDay) : null;
     list.forEach(function (w) {
-      frag.appendChild(createCard(w));
+      frag.appendChild(createCard(w, assignedKeySet));
     });
     grid.appendChild(frag);
   }

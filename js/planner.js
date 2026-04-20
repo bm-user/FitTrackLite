@@ -5,6 +5,7 @@
   const statPctEl = document.getElementById("stat-weekly-pct");
   const statMetaEl = document.getElementById("stat-weekly-meta");
   const statBarEl = document.getElementById("stat-weekly-bar");
+  const clearAllBtn = document.getElementById("planner-clear-all");
 
   if (!gridEl) return;
 
@@ -69,9 +70,10 @@
       statMetaEl.textContent =
         total > 0
           ? done + " / " + total + " workouts completed in planner"
-          : "No items in planner yet — use Add on each day below";
+          : "No items in planner yet";
     }
     if (statBarEl) statBarEl.style.width = pct + "%";
+    if (clearAllBtn) clearAllBtn.disabled = total === 0;
   }
 
   function formatItemDuration(item) {
@@ -167,6 +169,24 @@
 
     gridEl.appendChild(frag);
     updateProgressUI();
+  }
+
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener("click", function () {
+      if (totalItemCount() === 0) return;
+      if (
+        !confirm(
+          "Remove every workout from all days this week? This cannot be undone."
+        )
+      ) {
+        return;
+      }
+      state.days.forEach(function (d) {
+        d.items = [];
+      });
+      saveState();
+      render();
+    });
   }
 
   loadState();
