@@ -74,6 +74,18 @@
     if (statBarEl) statBarEl.style.width = pct + "%";
   }
 
+  function formatItemDuration(item) {
+    if (item.reps != null && item.reps !== "") {
+      var rn = Number(item.reps);
+      if (!isNaN(rn) && isFinite(rn)) return rn + " reps";
+    }
+    if (item.durationMins != null && item.durationMins !== "") {
+      var mn = Number(item.durationMins);
+      if (!isNaN(mn) && isFinite(mn)) return mn + " min";
+    }
+    return "";
+  }
+
   function dayCardAllDone(day) {
     const items = day.items || [];
     if (!items.length) return false;
@@ -130,7 +142,18 @@
 
         const lab = document.createElement("label");
         lab.htmlFor = cb.id;
-        lab.textContent = item.title;
+        lab.className = "planner-card__row-label";
+        const titleEl = document.createElement("span");
+        titleEl.className = "planner-card__row-title";
+        titleEl.textContent = item.title;
+        lab.appendChild(titleEl);
+        var durStr = formatItemDuration(item);
+        if (durStr) {
+          var durEl = document.createElement("span");
+          durEl.className = "planner-card__row-duration";
+          durEl.textContent = durStr;
+          lab.appendChild(durEl);
+        }
 
         row.appendChild(cb);
         row.appendChild(lab);

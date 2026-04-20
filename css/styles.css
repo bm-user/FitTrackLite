@@ -545,13 +545,25 @@ main {
 /* ----- Dashboard: weekly progress (single bar at top) ----- */
 
 .dashboard-progress {
-  margin-top: 50px;
-  margin-bottom: var(--space-lg);
+  margin-top: var(--space-lg);
+  margin-bottom: 0;
   padding: var(--space-lg);
   background: var(--gradient-surface-card);
   border: 1px solid var(--color-card-border-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+}
+
+/* Nested at bottom of weekly planner: one unified card */
+.weekly-planner .dashboard-progress {
+  margin-top: var(--space-xl);
+  margin-bottom: 0;
+  padding: var(--space-lg) 0 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--color-card-border-soft);
+  box-shadow: none;
 }
 
 .dashboard-progress_header {
@@ -1184,7 +1196,7 @@ main {
 
 .planner-card__row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-xs);
   width: 100%;
   justify-content: flex-start;
@@ -1193,17 +1205,37 @@ main {
 
 .planner-card__row input {
   flex-shrink: 0;
+  margin-top: 0.2rem;
 }
 
-.planner-card__row label {
+.planner-card__row-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
   cursor: pointer;
+  min-width: 0;
 }
 
-.planner-card__row--done label {
+.planner-card__row-title {
+  font-weight: var(--font-weight-medium);
+  color: inherit;
+}
+
+.planner-card__row-duration {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.planner-card__row--done .planner-card__row-label {
   color: var(--color-text-muted);
+}
+
+.planner-card__row--done .planner-card__row-title {
   text-decoration: line-through;
 }
 

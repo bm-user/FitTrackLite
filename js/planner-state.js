@@ -15,12 +15,12 @@
 
   function defaultPlannerDays() {
     return [
-      { shortLabel: "Mon", items: [{ uid: "def-mon", title: "Running", completed: false }] },
+      { shortLabel: "Mon", items: [{ uid: "def-mon", title: "Running", durationMins: 30, completed: false }] },
       { shortLabel: "Tue", items: [{ uid: "def-tue", title: "Rest", completed: false }] },
-      { shortLabel: "Wed", items: [{ uid: "def-wed", title: "Yoga", completed: false }] },
-      { shortLabel: "Thu", items: [{ uid: "def-thu", title: "Gym", completed: false }] },
-      { shortLabel: "Fri", items: [{ uid: "def-fri", title: "HIIT", completed: false }] },
-      { shortLabel: "Sat", items: [{ uid: "def-sat", title: "Cycling", completed: false }] },
+      { shortLabel: "Wed", items: [{ uid: "def-wed", title: "Yoga", durationMins: 45, completed: false }] },
+      { shortLabel: "Thu", items: [{ uid: "def-thu", title: "Gym", durationMins: 60, completed: false }] },
+      { shortLabel: "Fri", items: [{ uid: "def-fri", title: "HIIT", durationMins: 25, completed: false }] },
+      { shortLabel: "Sat", items: [{ uid: "def-sat", title: "Cycling", durationMins: 40, completed: false }] },
       { shortLabel: "Sun", items: [{ uid: "def-sun", title: "Rest", completed: false }] },
     ];
   }
@@ -43,15 +43,51 @@
   }
 
   function normalizePlannerDays(days) {
+    var seedByUid = {};
+    defaultPlannerDays().forEach(function (day) {
+      (day.items || []).forEach(function (seedIt) {
+        seedByUid[seedIt.uid] = seedIt;
+      });
+    });
+
     return days.map(function (d) {
       return {
         shortLabel: d.shortLabel,
         items: (d.items || []).map(function (it, idx) {
-          return {
+          var row = {
             uid: it && it.uid != null ? String(it.uid) : "norm-" + d.shortLabel + "-" + idx,
             title: it && it.title != null ? String(it.title) : "Rest",
             completed: !!(it && it.completed),
           };
+          if (it && it.reps != null && it.reps !== "") {
+            var rn = Number(it.reps);
+            if (!isNaN(rn) && isFinite(rn)) row.reps = rn;
+          }
+          if (it && it.durationMins != null && it.durationMins !== "") {
+            var mn = Number(it.durationMins);
+            if (!isNaN(mn) && isFinite(mn)) row.durationMins = mn;
+          }
+          /* Older saves omitted reps/min — fill from default seed when uid matches */
+          var seed = seedByUid[row.uid];
+          if (
+            seed &&
+            row.reps == null &&
+            (row.durationMins == null || row.durationMins === "")
+          ) {
+            if (seed.reps != null && seed.reps !== "") {
+              var sr = Number(seed.reps);
+              if (!isNaN(sr) && isFinite(sr)) row.reps = sr;
+            }
+            if (
+              (row.durationMins == null || row.durationMins === "") &&
+              seed.durationMins != null &&
+              seed.durationMins !== ""
+            ) {
+              var sm = Number(seed.durationMins);
+              if (!isNaN(sm) && isFinite(sm)) row.durationMins = sm;
+            }
+          }
+          return row;
         }),
       };
     });

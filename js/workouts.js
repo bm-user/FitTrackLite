@@ -66,11 +66,20 @@
     });
     if (!day) return false;
     if (!Array.isArray(day.items)) day.items = [];
-    day.items.push({
+    var plannerItem = {
       uid: "add-" + Date.now() + "-" + Math.random().toString(36).slice(2, 9),
       title: workout.title,
       completed: false,
-    });
+    };
+    if (workout.reps != null && workout.reps !== "") {
+      var r = Number(workout.reps);
+      if (!isNaN(r) && isFinite(r)) plannerItem.reps = r;
+    }
+    if (workout.durationMins != null && workout.durationMins !== "") {
+      var m = Number(workout.durationMins);
+      if (!isNaN(m) && isFinite(m)) plannerItem.durationMins = m;
+    }
+    day.items.push(plannerItem);
     state.days = PS.normalizePlannerDays(state.days);
     localStorage.setItem(PLANNER_KEY, JSON.stringify(state));
     return true;
