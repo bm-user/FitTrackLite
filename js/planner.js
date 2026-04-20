@@ -1,81 +1,7 @@
-/**
- * Dashboard totals from Add Workout saves (fittrack-user-workouts).
- * Runs first so Live Server / single bundle always updates stats even if planner init fails.
- */
-(function () {
-  var USER_WORKOUTS_KEY = "fittrack-user-workouts";
-  var SESSION_BUMP = "fittrack-user-workouts-changed";
-
-  function readUserWorkouts() {
-    var list = [];
-    try {
-      list = JSON.parse(localStorage.getItem(USER_WORKOUTS_KEY) || "[]");
-    } catch (e) {
-      list = [];
-    }
-    return Array.isArray(list) ? list : [];
-  }
-
-  function updateStats() {
-    var totalEl = document.getElementById("stat-total-workouts");
-    var calEl = document.getElementById("stat-total-calories");
-    if (!totalEl || !calEl) return;
-
-    var list = readUserWorkouts();
-    var totalKcal = 0;
-    for (var i = 0; i < list.length; i++) {
-      var w = list[i];
-      if (!w || w.calories == null || w.calories === "") continue;
-      var n = Number(w.calories);
-      if (!isNaN(n) && isFinite(n)) totalKcal += n;
-    }
-
-    totalEl.textContent = String(list.length);
-    calEl.textContent = Math.round(totalKcal) + " kcal";
-  }
-
-  function bind() {
-    try {
-      if (sessionStorage.getItem(SESSION_BUMP)) {
-        sessionStorage.removeItem(SESSION_BUMP);
-      }
-    } catch (e) {}
-
-    updateStats();
-
-    window.addEventListener("pageshow", function () {
-      updateStats();
-    });
-    document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState === "visible") updateStats();
-    });
-    window.addEventListener("focus", updateStats);
-    window.addEventListener("storage", function (e) {
-      if (e.key === USER_WORKOUTS_KEY || e.key === null) updateStats();
-    });
-    window.addEventListener("load", function () {
-      updateStats();
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bind);
-  } else {
-    bind();
-  }
-
-  window.FitTrackRefreshUserWorkoutStats = updateStats;
-})();
-
 (function () {
   const STORAGE_KEY = "fittrack-weekly-planner";
 
   const gridEl = document.getElementById("planner-grid");
-  const progressBarEl = document.getElementById("planner-progress-bar");
-  const progressPctEl = document.getElementById("planner-progress-pct");
-  const progressCountEl = document.getElementById("planner-progress-count");
-  const progressCheckboxEl = document.getElementById("planner-progress-checkbox");
-
   const statPctEl = document.getElementById("stat-weekly-pct");
   const statMetaEl = document.getElementById("stat-weekly-meta");
   const statBarEl = document.getElementById("stat-weekly-bar");
@@ -138,22 +64,12 @@
     const done = completedItemCount();
     const pct = total > 0 ? Math.round((done / total) * 100) : 0;
 
-    if (progressBarEl) progressBarEl.style.width = pct + "%";
-    if (progressPctEl) progressPctEl.textContent = pct + "%";
-    if (progressCountEl) {
-      progressCountEl.textContent =
-        total > 0
-          ? done + " / " + total + " workouts completed"
-          : "Add workouts to track progress";
-    }
-    if (progressCheckboxEl) {
-      progressCheckboxEl.checked = total > 0 && done === total;
-    }
-
     if (statPctEl) statPctEl.textContent = pct + "%";
     if (statMetaEl) {
       statMetaEl.textContent =
-        total > 0 ? done + " / " + total + " checked in planner" : "No items in planner";
+        total > 0
+          ? done + " / " + total + " workouts completed in planner"
+          : "No items in planner yet — use Add on each day below";
     }
     if (statBarEl) statBarEl.style.width = pct + "%";
   }

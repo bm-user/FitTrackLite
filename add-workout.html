@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FitTrack Lite — Log workouts, set duration or reps, and search exercises to build sessions faster.">
   <!-- Exercise demos: same-origin GET /api/exercisedb (Vercel serverless). Set EXERCISEDB_RAPIDAPI_KEY in Vercel → Environment Variables. -->
   <meta name="fittrack-exercisedb-proxy" content="/api/exercisedb">
   <title>FitTrack Lite — Add Workout</title>
@@ -55,7 +56,10 @@
 
         </g>
         </svg>
-        <span>FitTrack Lite</span>
+        <span class="site-header_brand-stack">
+          <span class="site-header_title">FitTrack Lite</span>
+          <span class="site-header_tagline">Plan workouts. Track weekly progress.</span>
+        </span>
       </a>
       <button type="button" class="site-header_menu-btn" aria-expanded="false" aria-controls="site-nav-menu">
         <span class="visually-hidden">Toggle menu</span>
@@ -80,7 +84,6 @@
           <div class="form-field">
             <label for="workout-name">Workout name</label>
             <input id="workout-name" name="workout-name" type="text" autocomplete="off" maxlength="120" required aria-describedby="workout-name-hint" placeholder="e.g. Morning run, Bench press">
-            <p id="workout-name-hint" class="form-field-hint">Up to 120 characters.</p>
           </div>
           <div class="form-field">
             <label for="category">Category</label>
@@ -90,7 +93,6 @@
               <option value="Strength">Strength</option>
               <option value="Flexibility">Flexibility</option>
             </select>
-            <p id="category-hint" class="form-field-hint">Choose Cardio, Strength, or Flexibility.</p>
           </div>
           <div class="form-row-split">
             <div class="form-field">
@@ -102,12 +104,10 @@
                   <option value="reps">Reps</option>
                 </select>
               </div>
-              <p id="duration-hint" class="form-field-hint">Minutes: 1–1440 · Reps: 1–999.</p>
             </div>
             <div class="form-field">
               <label for="calories">Calories burned</label>
               <input id="calories" name="calories" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="calories-hint" placeholder="e.g. 250">
-              <p id="calories-hint" class="form-field-hint">Whole number, 0–20000.</p>
             </div>
           </div>
           <div class="form-actions">
@@ -117,19 +117,14 @@
       </div>
 
       <aside class="exercise-db-panel" aria-label="Exercise demos">
-        <h2 class="exercise-db-panel_title">Look up a demo</h2>
-        <p class="exercise-db-panel_intro">
-          Enter a <strong>muscle</strong> (e.g. triceps), <strong>body area</strong> (e.g. chest), or <strong>exercise name</strong> (e.g. bench press), then search to see a short demo—video when available, otherwise an animated preview. Exercise data from
-          <a href="https://github.com/exercisedb/exercisedb-api" rel="noopener noreferrer">ExerciseDB</a>.
-        </p>
-
+        <h2 class="exercise-db-panel_title">Look up a reference</h2>
         <div class="exercise-db-search-block">
-          <label for="exercisedb-search" class="exercise-db-search-label">Muscle or exercise name</label>
+          <label for="exercisedb-search" class="exercise-db-search-label">Muscle or exercise name </label>
           <div class="exercise-db-search-row">
-            <input id="exercisedb-search" class="exercise-db-search-input" type="search" placeholder="e.g. bench press, triceps, chest" autocomplete="off" aria-describedby="exercisedb-search-hint">
+            <input id="exercisedb-search" class="exercise-db-search-input" type="search" placeholder="e.g. bench press, triceps, chest bench press" autocomplete="off" aria-describedby="exercisedb-search-hint">
             <button type="button" class="btn-primary exercise-db-search-btn" id="exercisedb-search-btn">Search</button>
           </div>
-          <p id="exercisedb-search-hint" class="form-field-hint">Press Enter or Search. We match muscle or body-part lists when we can; otherwise we search by exercise name.</p>
+          <p id="exercisedb-search-hint" class="form-field-hint">Press Enter or Search.</p>
         </div>
 
         <p id="exercisedb-status" class="exercise-db-status" role="status" aria-live="polite"></p>
@@ -140,7 +135,10 @@
 
   <footer class="site-footer">
     <div class="container site-footer_inner">
-      <p class="site-footer_text">&copy; FitTrack Lite</p>
+      <div class="site-footer_copy">
+        <p class="site-footer_tagline">FitTrack Lite is a lightweight fitness companion for planning sessions and seeing how your week stacks up</p>
+        <p class="site-footer_text">&copy; 2026 FitTrack Lite</p>
+      </div>
       <a class="site-footer_link" href="#main">Back to top</a>
     </div>
   </footer>

@@ -373,9 +373,30 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
+  line-height: var(--line-height-tight);
+  min-width: 0;
+}
+
+.site-header_brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.site-header_title {
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
   line-height: var(--line-height-tight);
+}
+
+.site-header_tagline {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-xs);
+  line-height: 1.35;
+  opacity: 0.92;
+  max-width: 17rem;
 }
 
 /* Runner icon — height drives scale; width follows viewBox (72×87) */
@@ -430,22 +451,53 @@ main {
   max-width: 36rem;
 }
 
-/* ----- Dashboard: stats —1 column mobile, 3 columns desktop ----- */
+/* ----- Dashboard: daily quote (API Ninjas) ----- */
 
-.stat-grid {
-  display: grid;
-  gap: var(--space-md);
-  grid-template-columns: 1fr;
-  margin-top: var(--space-lg);
+.daily-quote {
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-xl);
+  background: var(--gradient-surface-card);
+  border: 1px solid var(--color-card-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
-@media (min-width: 48rem) {
-  .stat-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.daily-quote_text {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  font-style: italic;
+  letter-spacing: -0.01em;
 }
 
-.stat-card {
+.daily-quote_author {
+  margin: var(--space-md) 0 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  font-style: normal;
+}
+
+.daily-quote_credit {
+  margin: var(--space-lg) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.daily-quote_credit a {
+  color: var(--color-primary);
+}
+
+.daily-quote_credit a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ----- Dashboard: weekly progress (single bar at top) ----- */
+
+.dashboard-progress {
+  margin-top: 0;
   padding: var(--space-lg);
   background: var(--gradient-surface-card);
   border: 1px solid var(--color-card-border-soft);
@@ -453,37 +505,49 @@ main {
   box-shadow: var(--shadow-sm);
 }
 
-.stat-card_label {
-  margin: 0 0 var(--space-xs);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+.dashboard-progress_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
-.stat-card_value {
+.dashboard-progress_title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.dashboard-progress_pct {
   margin: 0;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 
-.stat-card_meta {
-  margin: var(--space-xs) 0 0;
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-}
-
-.stat-card_progress {
-  margin-top: var(--space-md);
+.dashboard-progress_track {
   height: var(--space-sm);
   border-radius: var(--radius-pill);
   background: var(--color-border);
   overflow: hidden;
+  margin-bottom: var(--space-sm);
 }
 
-.stat-card_progress-fill {
+.dashboard-progress_fill {
   height: 100%;
-  width: 85%;
+  width: 0%;
   border-radius: var(--radius-pill);
   background: var(--gradient-header);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.dashboard-progress_meta {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
 }
 
 /* ----- Workouts: toolbar + card grid — stack vs multi-column ----- */
@@ -1094,62 +1158,6 @@ main {
   text-decoration: line-through;
 }
 
-.planner-progress {
-  margin-top: var(--space-xl);
-  padding: var(--space-lg);
-  background: var(--gradient-surface-card);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-card-border-soft);
-}
-
-.planner-progress__top {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
-}
-
-.planner-progress__top input {
-  flex-shrink: 0;
-}
-
-.planner-progress__title {
-  flex: 1;
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-}
-
-.planner-progress__pct {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-}
-
-.planner-progress__track {
-  height: var(--space-sm);
-  border-radius: var(--radius-pill);
-  background: var(--color-border);
-  overflow: hidden;
-  margin-bottom: var(--space-sm);
-}
-
-.planner-progress__fill {
-  height: 100%;
-  width: 0%;
-  border-radius: var(--radius-pill);
-  background: var(--gradient-header);
-  transition: width var(--duration-normal) var(--ease-standard);
-}
-
-.planner-progress__meta {
-  margin: 0;
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-}
-
 .form-success {
   margin-top: var(--space-md);
   padding: var(--space-sm) var(--space-md);
@@ -1198,10 +1206,31 @@ main {
 
 .site-footer_inner {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-md);
   padding-block: var(--space-lg);
+}
+
+@media (min-width: 48rem) {
+  .site-footer_inner {
+    align-items: center;
+  }
+}
+
+.site-footer_copy {
+  flex: 1 1 16rem;
+  min-width: 0;
+  max-width: 42rem;
+}
+
+.site-footer_tagline {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-body);
 }
 
 .site-footer_text {

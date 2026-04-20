@@ -186,9 +186,6 @@
     });
 
     localStorage.setItem(KEY, JSON.stringify(list));
-    try {
-      sessionStorage.setItem("fittrack-user-workouts-changed", String(Date.now()));
-    } catch (e) {}
 
     var msg = document.getElementById("add-workout-feedback");
     if (!msg) {

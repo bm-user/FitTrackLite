@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FitTrack Lite — Plan workouts, track weekly progress, and organize your training in a simple, browser-based fitness dashboard.">
+  <meta name="fittrack-quotes-proxy" content="/api/ninjas-quote">
   <title>FitTrack Lite — Dashboard</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -53,7 +55,10 @@
 
         </g>
         </svg>
-        <span>FitTrack Lite</span>
+        <span class="site-header_brand-stack">
+          <span class="site-header_title">FitTrack Lite</span>
+          <span class="site-header_tagline">Plan workouts. Track weekly progress.</span>
+        </span>
       </a>
       <button type="button" class="site-header_menu-btn" aria-expanded="false" aria-controls="site-nav-menu">
         <span class="visually-hidden">Toggle menu</span>
@@ -70,24 +75,23 @@
   </header>
 
   <main class="container" id="main">
-    <h1 class="page-title">Dashboard</h1>
-    <section class="stat-grid" aria-label="Summary stats">
-      <article class="stat-card">
-        <p class="stat-card_label">Total workouts</p>
-        <p class="stat-card_value" id="stat-total-workouts" aria-live="polite">0</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Calories burned</p>
-        <p class="stat-card_value" id="stat-total-calories" aria-live="polite">0 kcal</p>
-      </article>
-      <article class="stat-card">
-        <p class="stat-card_label">Weekly progress</p>
-        <p class="stat-card_value" id="stat-weekly-pct">0%</p>
-        <div class="stat-card_progress" aria-hidden="true">
-          <div class="stat-card_progress-fill" id="stat-weekly-bar" style="width: 0%"></div>
-        </div>
-        <p class="stat-card_meta" id="stat-weekly-meta">0 / 7 days in planner</p>
-      </article>
+    <section class="daily-quote" aria-labelledby="daily-quote-heading">
+      <h2 id="daily-quote-heading" class="visually-hidden">Inspirational quote</h2>
+      <blockquote class="daily-quote_text" id="daily-quote-text">Loading quote…</blockquote>
+      <p class="daily-quote_author" id="daily-quote-author" hidden></p>
+      <p class="daily-quote_credit">
+        <a href="https://api-ninjas.com/api/quotes" rel="noopener noreferrer">Quotes via API Ninjas</a>
+      </p>
+    </section>
+    <section class="dashboard-progress" aria-labelledby="dashboard-progress-heading">
+      <div class="dashboard-progress_header">
+        <h2 class="dashboard-progress_title" id="dashboard-progress-heading">Weekly progress</h2>
+        <p class="dashboard-progress_pct" id="stat-weekly-pct">0%</p>
+      </div>
+      <div class="dashboard-progress_track" aria-hidden="true">
+        <div class="dashboard-progress_fill" id="stat-weekly-bar" style="width: 0%"></div>
+      </div>
+      <p class="dashboard-progress_meta" id="stat-weekly-meta" aria-live="polite">No items in planner yet</p>
     </section>
 
     <section class="weekly-planner" id="weekly-planner" aria-labelledby="planner-heading">
@@ -99,29 +103,21 @@
       </div>
 
       <div id="planner-grid" class="planner-grid"></div>
-
-      <div class="planner-progress">
-        <div class="planner-progress__top">
-          <input type="checkbox" id="planner-progress-checkbox" disabled aria-readonly="true" title="Reflects planner completion">
-          <p class="planner-progress__title">Weekly progress</p>
-          <p class="planner-progress__pct" id="planner-progress-pct">0%</p>
-        </div>
-        <div class="planner-progress__track" aria-hidden="true">
-          <div class="planner-progress__fill" id="planner-progress-bar"></div>
-        </div>
-        <p class="planner-progress__meta" id="planner-progress-count">0 / 7 workouts completed</p>
-      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container site-footer_inner">
-      <p class="site-footer_text">&copy; FitTrack Lite</p>
+      <div class="site-footer_copy">
+        <p class="site-footer_tagline">FitTrack Lite is a lightweight fitness companion for planning sessions and seeing how your week stacks up</p>
+        <p class="site-footer_text">&copy; 2026 FitTrack Lite.</p>
+      </div>
       <a class="site-footer_link" href="#main">Back to top</a>
     </div>
   </footer>
 
   <script src="js/nav.js" defer></script>
+  <script src="js/daily-quote.js" defer></script>
   <script src="js/planner-state.js" defer></script>
   <script src="js/planner.js" defer></script>
 </body>
