@@ -79,19 +79,6 @@
       <h2 id="daily-quote-heading" class="visually-hidden">Inspirational quote</h2>
       <blockquote class="daily-quote_text" id="daily-quote-text">Loading quote…</blockquote>
       <p class="daily-quote_author" id="daily-quote-author" hidden></p>
-      <p class="daily-quote_credit">
-        <a href="https://api-ninjas.com/api/quotes" rel="noopener noreferrer">Quotes via API Ninjas</a>
-      </p>
-    </section>
-    <section class="dashboard-progress" aria-labelledby="dashboard-progress-heading">
-      <div class="dashboard-progress_header">
-        <h2 class="dashboard-progress_title" id="dashboard-progress-heading">Weekly progress</h2>
-        <p class="dashboard-progress_pct" id="stat-weekly-pct">0%</p>
-      </div>
-      <div class="dashboard-progress_track" aria-hidden="true">
-        <div class="dashboard-progress_fill" id="stat-weekly-bar" style="width: 0%"></div>
-      </div>
-      <p class="dashboard-progress_meta" id="stat-weekly-meta" aria-live="polite">No items in planner yet</p>
     </section>
 
     <section class="weekly-planner" id="weekly-planner" aria-labelledby="planner-heading">
@@ -103,6 +90,19 @@
       </div>
 
       <div id="planner-grid" class="planner-grid"></div>
+      <div>
+      <section class="dashboard-progress" aria-labelledby="dashboard-progress-heading">
+        <div class="dashboard-progress_header">
+          <h2 class="dashboard-progress_title" id="dashboard-progress-heading">Weekly progress</h2>
+          <p class="dashboard-progress_pct" id="stat-weekly-pct">0%</p>
+        </div>
+        <div class="dashboard-progress_track" aria-hidden="true">
+          <div class="dashboard-progress_fill" id="stat-weekly-bar" style="width: 0%"></div>
+        </div>
+        <p class="dashboard-progress_meta" id="stat-weekly-meta" aria-live="polite">No items in planner yet</p>
+      </section>
+      </div>
+      
     </section>
   </main>
 

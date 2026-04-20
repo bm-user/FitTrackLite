@@ -24,7 +24,7 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  var upstream = "https://api.api-ninjas.com/v2/quoteoftheday";
+  var upstream = "https://api.api-ninjas.com/v2/quotes?categories=success%2Cwisdom%2Cinspirational";
 
   try {
     var r = await fetch(upstream, {
