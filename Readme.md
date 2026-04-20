@@ -61,20 +61,22 @@ Low-fidelity / visual target for implementation:
 
 ## Live demo
 
-**Production URL:** _(add after deploy)_
+**Production URL:** [https://fit-track-lite.vercel.app/](https://fit-track-lite.vercel.app/)
 
-**Repository:** _(optional public GitHub URL)_
+**Repository:** [https://github.com/bm-user/FitTrackLite](https://github.com/bm-user/FitTrackLite)
 
 ## Tech stack
 
 - HTML5, CSS3 (**custom properties** for theme colors)
 - JavaScript (DOM, `fetch` for `data/workouts.json`, planner state in **`localStorage`**, shared **`js/planner-state.js`** for week-scoped planner data)
 - Static hosting (Vercel / Netlify / GitHub Pages)
-- [API Ninjas](https://api-ninjas.com/api) for Daily Motivation content (API key; see [NOTES.md](NOTES.md)) — optional / planned for dashboard quote block
+- [API Ninjas](https://api-ninjas.com/api) for Daily Motivation quotes (see **Challenges & solutions** below and [NOTES.md](NOTES.md))
 
 ## Challenges & solutions
 
-Document **at least one** concrete issue during build.
+**Challenge — Keeping the API Ninjas key off the client.** The daily quote uses `fetch()`, but putting an API key in browser JavaScript would expose it to anyone who views the source. The dashboard needs a working quote on production without leaking secrets.
+
+**Solution — Serverless proxy on Vercel.** The app calls a same-origin URL (`/api/ninjas-quote`, configured via the `fittrack-quotes-proxy` meta tag). A small Vercel serverless function adds the `X-Api-Key` header and forwards the request to API Ninjas. The browser never sees the key; `js/daily-quote.js` still handles loading text, HTTP errors, and user-visible fallbacks if the request fails.
 
 ## Research
 
