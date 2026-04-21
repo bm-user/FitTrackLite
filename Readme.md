@@ -4,9 +4,9 @@
 
 ## Project pitch
 
-FitTrack Lite is a **niche fitness portal** built as a small, focused website. It is aimed at people who are just starting to exercise and need a calm, straightforward place to **explore workout ideas**, **see motivation or context from the web**, and **log what they did** in one session.
+FitTrack Lite is a fitness portal built as a small, focused website. It is aimed at people who are just starting to exercise and need a calm, straightforward place to explore workout ideas, see motivation or context from the web, and log what they did in one session.
 
-Heavy fitness apps often add dashboards, subscriptions, and social features before someone has built a habit. FitTrack Lite deliberately stays small: a few clear pages, a consistent visual style, and interactions that work on a phone or a laptop. The goal is to lower the barrier to **showing up again tomorrow**.
+Heavy fitness apps often add dashboards, subscriptions, and social features before someone has built a habit. FitTrack Lite deliberately stays small: a few clear pages, a consistent visual style, and interactions that work on a phone or a laptop. The goal is to lower the barrier to showing up again tomorrow.
 
 Implementation uses **semantic HTML**, **CSS** (including variables aligned with the mockup: greens, neutrals, motivation accent), and **vanilla JavaScript** for filtering, dynamic lists, form validation with **custom messages**, and `fetch()` for the motivation widget.
 
@@ -17,13 +17,13 @@ Implementation uses **semantic HTML**, **CSS** (including variables aligned with
 - Wants to move more and build a routine without drowning in complex dashboards or paywalled apps.
 - Likes seeing **simple numbers** (workout count, calories, weekly bar) and **what to do next** (workout cards).
 - Uses **phone and laptop** and expects the layout to stay usable when the grid stacks on small screens.
-- Success means **logging sessions regularly**, **browsing workouts confidently**, and **trusting** validation messages on the add form.
+- Success means planning sessions regularly, browsing workouts confidently.
 
 ## Problem
 
 Beginners often quit when tools feel like extra work:
 
-- **No single calm home base** that combines motivation, quick stats, and recent activity.
+- **No single calm home base** that combines motivation, planner, quick stats.
 - **Hard to explore** “what could I do?” without a visual library and fast filter/search.
 - **Forms feel rigid**—no helpful structure (e.g. category, muscle-based suggestions) and no human-readable errors.
 
